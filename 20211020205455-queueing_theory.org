@@ -1,0 +1,150 @@
+:PROPERTIES:
+:ID:       559fcb20-ad95-41fc-bd74-e915b1eba49b
+:END:
+#+title: Queueing Theory
+#+STARTUP: latexpreview
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Queueing theory is the mathematical study of waiting lines, or queues.
+
+* Kendall Notation
+A/S/m/B/K/SD
+- A: interarrival time distribution
+- S: service time distribution
+- m: number of servers
+- B: number of buffers (system capacity)
+- K: population size
+- SD: service discipline
+
+* Rules For All Queues
+- $\tau$: interarrival time
+- $\lambda$: mean arrival rate, = $1/E[\tau]$. In some system, it can be a function of the state of the system, i.e. [[id:d9e85261-b9d3-4bef-b61d-d01c30825b73][Load-dependent Service Center]].
+- $s$: service time per job
+- $\mu$: mean service rate per server, = $1/E[S]$. Total service rate for $m$ servers is $m\mu$
+- $n$: number of jobs in the system, also called *queue length*. $n = n_q + n_s$, i.e. queue length includes jobs in service and those waiting in the queue.
+- $n_q$: number of jobs waiting to receive service
+- $n_s$: number of jobs receiving service
+- $r$: response time of the system, includes waiting time and service time
+- $w$: waiting time, i.e. the time interval between arrival time and the instant the service begin
+
+** Stability Condition
+If the number of jobs in a system grows continuously and becomes infinite, the system is said to be unstable. For stability the mean arrival rate should be less then the mean service rate:
+\[ \lambda < m\mu \]
+
+This stability condition does not apply to the finite population and the finite buffer systems. In the finite population systems, the queue length is always finite; the system can never become unstable. Also, the finite buffer systems are always stable since the arrivals are lost when the number of jobs in the system exceeds the number of buffers, that is, the system capacity.
+
+** Number in System versus Number in Queue
+The number of jobs in the sytem is always equal to the sum of the number in the queue and the number receiving service:
+\[ n = n_q + n_s \]
+
+Notice that $n$, $n_q$ and $n_s$ are [[id:9b83041d-e95c-45f5-80e5-fd8f6167ffac][random variables]], this equality leads to the following relationship among their means:
+\[ E[n] = E[n_q] + E[n_s] \]
+
+Further, if the service rate of each server is independent of the number in the queue, we have:
+\[ Cov(n_q, n_s) = 0 \]
+and
+\[ Var[n] = Var[n_q] + Var[n_s] \]
+
+** Number versus Time
+If no jobs is dropped due to limited buffer size, the mean number of jobs in a system is related to its mean response time:
+#+NAME: eqn:little's_law_1
+\begin{equation}
+E[n] = \lambda E[r]
+\end{equation}
+
+Similarly, mean number of jobs in queue is related to its mean waiting time:
+#+NAME: eqn:little's_law_2
+\begin{equation}
+E[n_q] = \lambda E[w]
+\end{equation}
+
+Equation [[eqn:little's_law_1]] and [[eqn:little's_law_2]] are known as [[id:aa65d215-839f-44aa-985c-3bee2bfbc80a][Little's Law]].
+
+** Time in System versus Time in Queue
+The time spent by a job in a queueing system equal to the sum of the time waiting the queue and the time receiving service:
+\[ r = w + s \]
+
+Since $r$, $w$ and $s$ are random variables, their means also follow the equality:
+\[ E[r] = E[w] + E[s] \]
+
+Again, if the service rate is independent of the number of jobs in queue, we have:
+\[ Cov(w,s) = 0 \]
+and
+\[ Var[r] = Var[w] + Var[s] \]
+
+
+* Analysis of a Single Queue
+:PROPERTIES:
+:ID:       7f055acc-6921-4aa3-81cd-e1b901fa2876
+:END:
+The simplest queueing model is one that has only one queue. Many queue can be modeled as a [[id:89fa2c9b-f6ac-4cc5-a1c7-50e5be3c07ab][Birth-Death Processes]].
+
+When the system is in state $n$, it has $n$ jobs in it. The new arrivals rate is $\lambda_n$, service rate is $\mu_n$. We assume both the interarrival times and service times are exponentially distributed (i.e. M/M/... Model).
+
+The steady-state probability $p_n$ of a birth-death process being in state n is:
+#+NAME: eqn:steady_state
+\begin{equation}
+p_n = \frac{\lambda_0 \lambda_1 \cdots \lambda_{n-1}}{\mu_1 \mu_2 \cdots \lambda_n} p_0, \quad n = 1, 2, \ldots, \infty
+\end{equation}
+Here, $p_0$ is the probability of being in the zero state.
+
+#+begin_proof
+Suppose the system is in state $j$ at time $t$. In the next time interval of a very small duration $\Delta t$, the system can move to state $j-1$ or $j+1$ with the following probabilities:
+\[
+P\{n(t+\Delta t) = j+1 \mid n(t) = j\} = \lambda_j \Delta t
+\]
+\[
+P\{n(t+\Delta t) = j-1 \mid n(t) = j\} = \mu_j \Delta t
+\]
+
+If there are no arrivals or departures, the system will stay in state $j$:
+\[
+P\{n(t+\Delta t) = j \mid n(t)=j\}=1-\lambda_{j} \Delta t
+\]
+
+Note that we assuming $\Delta t$ is small enough that no chance of two events occurring during this interval.
+
+If $p_i(t)$ dentotes the probability of being in state $j$ at time $i$, we can write a set of linear equations as follow:
+\begin{equation}
+\begin{aligned}
+p_0(t + \Delta t) &= (1-\lambda_0\Delta t)p_0(t) + \mu_1\Delta t p_1(t) \\
+p_1(t + \Delta t) &= \lambda_0\Delta t p_0(t) + (1 - \mu_1\Delta t - \lambda_1\Delta t)p_1(t) + \mu_2\Delta t p_2(t) \\
+\vdots \\
+p_j(t + \Delta t) &= \lambda_{j-1}\Delta t p_{j-1}(t) + (1 - \mu_j\Delta t - \lambda_j\Delta t)p_j(t) + \mu_{j+1}\Delta t p_{j+1}(t)
+\end{aligned}
+\end{equation}
+
+The $j$-th equation can be written as follows:
+\begin{equation}
+\begin{aligned}
+\lim _{\Delta t \rightarrow 0} \frac{p_{j}(t+\Delta t)-p_{j}(t)}{\Delta t} &=\lambda_{j-1} p_{j-1}(t)-\left(\mu_{j}+\lambda_{j}\right) p_{j}(t)+\mu_{j+1} p_{j+1}(t) \\
+\frac{d p_{j}(t)}{d t} &=\lambda_{j-1} p_{j-1}(t)-\left(\mu_{j}+\lambda_{j}\right) p_{j}(t)+\mu_{j+1} p_{j+1}(t)
+\end{aligned}
+\end{equation}
+
+Under steady state, $p_j(t)$ approaches a fixed value $p_j$, that is:
+\begin{equation}
+\begin{aligned}
+\lim _{t \rightarrow \infty} p_j(t) &= p_j \\
+\lim _{t \rightarrow \infty} \frac{d p_j(t)}{d t} &= 0
+\end{aligned}
+\end{equation}
+
+Substituting these in the $j$-th equation, we get:
+\begin{equation}
+0 = \lambda_{j-1}p_{j-1} - (\mu_j + \lambda_j)p_j + \mu_{j+1}p_{j+1}
+\end{equation}
+
+The solution:
+\begin{equation}
+\begin{aligned}
+p_n &= \frac{\lambda_0 \lambda_1 \cdots \lambda_{n-1}}{\mu_1 \mu_2 \cdots \lambda_n} p_0 \\
+ &= p_0 \prod_{j=0}^{n-1} \frac{\lambda_j}{\mu_{j+1}}, \quad n = 1, 2, \ldots, \infty
+\end{aligned}
+\end{equation}
+#+end_proof
+
+From [[eqn:steady_state]] and the additional condition that the sum of all probabilities must be equal to 1. This gives:
+\begin{equation}
+p_0 = \frac{1}{1+ \sum_{n=1}^\infty \prod_{j=0}^{n-1} \frac{\lambda_j}{\mu_{j+1}}}
+\end{equation}

@@ -1,0 +1,4 @@
+:PROPERTIES:
+:ID:       9b83041d-e95c-45f5-80e5-fd8f6167ffac
+:END:
+#+title: Random Variable

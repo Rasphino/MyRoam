@@ -1,0 +1,53 @@
+:PROPERTIES:
+:ID:       d30e6f63-c064-4a1e-925e-5acf17104658
+:END:
+#+title: M/M/1 Queueing Model
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+In [[id:559fcb20-ad95-41fc-bd74-e915b1eba49b][queueing theory]], a discipline within the mathematical theory of probability, an *M/M/1* queue represents the queue length in a system having a single server, where arrivals are determined by a Poisson process and job service times have an exponential distribution.
+
+1. Parameters:
+  - $\lambda$ arrival rate in jobs per unit time
+  - $\mu$ service rate in jobs per unit time
+2. Traffic intensity: $\rho = \lambda / \mu$
+3. Stability condition: $\rho$ must be less than 1
+4. Prob. of zero jobs in the system: $p_0 = 1 - \rho$
+5. Prob. of $n$ jobs in the system: $p_n = (1 - \rho)\rho^n$
+6. Mean number of jobs in the system: $E[n] = \frac{\rho}{1-\rho}$
+7. Variance of number of jobs in the system: $Var[n] = \frac{\rho}{(1-\rho)^{2}}$
+8. Prob. of $k$ jobs in the queue:
+   \[
+   P\left(n_{q}=k\right)= \begin{cases}1-\rho^{2}, & k=0 \\ (1-\rho) p^{k+1}, & k>0\end{cases}
+   \]
+9. Mean number of jobs in the queue: $E[n_q] = \frac{\rho^{2}}{(1-\rho)}$
+10. Variance of number of jobs in the queue: $Var[n_q] = \frac{\rho^{2}(1+\rho-\rho^{2})}{(1-\rho)^{2}}$
+11. Cumulative distribution function of the response time:
+12. Mean response time: $E[r] = \frac{1/\mu}{1-\rho}$
+13. Variance of the response time: $Var[r] = \frac{1/\mu^{2}}{(1-\rho)^{2}}$
+14. $q$ Percentile of the response time: $E[r]ln\frac{100}{100-q}$
+15. 90 Percentile of the response time: $2.3E[r]$
+16. Cumulative distributeion function of waiting time:
+17. Mean waiting time: $E[w] = \rho \frac{1/\mu}{1-\rho}$
+18. Variance of the waiting time: $Var[w] = \frac{(2-\rho)\rho}{\mu^{2}(1-\rho)^{2}}$
+19. $q$ Percentile of the waiting time:
+20. 90 Percentile of the waiting time:
+21. Prob. of finding /$n$ or more/ jobs in the system: $\rho^{n}$
+22. Prob. of serving $n$ jobs in one busy period:
+23. Mean number of jobs served in one busy period: $1/(1-\rho)$
+24. Variance of number of jobs served in one busy period: $\frac{\rho(1+\rho)}{(1-\rho)^{3}}$
+25. Mean busy period duration: $\frac{1}{\mu(1-\rho)}$
+26. Variance of the busy period:
+
+* TODO Analysis
+M/M/1 queueing model is one of the special form of [[id:89fa2c9b-f6ac-4cc5-a1c7-50e5be3c07ab][Birth-Death Processes]] with the following correspondence:
+\begin{equation}
+\begin{aligned}
+\lambda_n &= \lambda, \quad n=0,1,2,\ldots \\
+\mu_n &= \mu, \quad n=1,2,\ldots
+\end{aligned}
+\end{equation}
+
+Thus, the probability of $n$ jobs in the system:
+\begin{equation}
+p_n = \left( \frac{\lambda}{\mu} \right)^n p_0, \quad n=1,2,\ldots,\infty
+\end{equation}

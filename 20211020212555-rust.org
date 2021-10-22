@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       db14686c-74a4-4199-91be-5ff7527b2f20
+:END:
+#+title: Rust
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Rust is a multi-paradigm, high-level, general-purpose [[id:524436da-d5f8-4e87-b1e0-16a888eb5761][programming language]] designed for performance and safety, especially safe concurrency. Rust is syntactically similar to C++, but can guarantee memory safety by using a borrow checker to validate references. Rust achieves memory safety without garbage collection, and reference counting is optional.

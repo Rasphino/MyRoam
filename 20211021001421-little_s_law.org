@@ -1,0 +1,23 @@
+:PROPERTIES:
+:ID:       aa65d215-839f-44aa-985c-3bee2bfbc80a
+:END:
+#+title: Little's Law
+#+STARTUP: latexpreview
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Mean number in the system = arrival rate * mean response time
+
+#+NAME: eqn:little's_law
+\begin{equation}
+\begin{aligned}
+E[n] &= \lambda E[r] \\
+E[n_q] &= \lambda E[w]
+\end{aligned}
+\end{equation}
+
+* Prerequisite
+The number of jobs entering the system is equal to those completing service
+
+* TODO Proof
+Suppose monitor the system for a long time period $T$ and keep log of arrival and departure times of each individual job. Because $T$ is large, the number of arrivals would be approximately equal to the departures, let this number be $N$. Then:
+\[ \text{Arrival rate} = \text{total arrivals} / \text{total time} = N/T \]

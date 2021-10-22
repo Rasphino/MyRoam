@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       89fa2c9b-f6ac-4cc5-a1c7-50e5be3c07ab
+:END:
+#+title: Birth-Death Processes
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+The discrete-space [[id:3016d359-16d1-4244-889d-896faa1bf33e][Markov processes]] in which the transitions are restricted to neighboring states. For these processes, it is possible to represent states by integers such that a process in state $n$ can change only to state $n+1$ or $n–1$.
+
+#+begin_eg
+The number of jobs in a queue with a single server and individual arrivals (not bulk arrivals) can be represented as a birth-death process. An arrival to the queue (a birth) causes the state to change by $+1$ and a departure after service at the queue (a death) causes the state to change by $–1$.
+#+end_eg

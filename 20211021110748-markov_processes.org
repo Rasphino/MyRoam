@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       3016d359-16d1-4244-889d-896faa1bf33e
+:END:
+#+title: Markov Processes
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Future states of a process are independent of the past and depend only on the present, the process is called a Markov process.
+
+A discrete-state Markov process is called a *Markov chain*.

@@ -1,0 +1,27 @@
+:PROPERTIES:
+:ID:       a96751b3-1471-429d-96e6-f6ee81c842ab
+:END:
+#+title: M/M/m Queueing Model
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+In [[id:559fcb20-ad95-41fc-bd74-e915b1eba49b][Queueing Theory]], *M/M/m* queue can be used to model multiprocessor systems or devices that have several identical servers and all jobs waiting for these servers are kept in one queue. It is assumed that there are $m$ servers each with a service rate of $\mu$ jobs per unit time. The arrival rate is $\lambda$ jobs per unit time. If any of the $m$ servers are idle, the arriving job is serviced immediately. If all $m$ servers are busy, the arriving jobs wait in a queue. The state of the system is represented by the number of jobs $n$ in the system. It is easy to see that the number of jobs in the system is a [[id:89fa2c9b-f6ac-4cc5-a1c7-50e5be3c07ab][Birth-Death Processes]] with the following correspondence:
+\begin{equation}
+\begin{aligned}
+\lambda_{n} &= \lambda, \quad n=0,1,2, \ldots, \infty \\
+\mu_{n} &=
+  \begin{cases}
+  n \mu, & n=1,2, \quad \ldots, m-1 \\
+  m \mu, & n=m, m+1, \quad \ldots, \infty
+  \end{cases}
+\end{aligned}
+\end{equation}
+
+From [[id:7f055acc-6921-4aa3-81cd-e1b901fa2876][Analysis of a Single Queue]], the probability of $n$ jobs in the system:
+\begin{equation}
+p_{n}= \begin{cases}\frac{\lambda^{n}}{n ! \mu^{n}} p_{0}, & n=1,2, \ldots, m-1 \\ \frac{\lambda^{n}}{m ! m^{n-m} \mu^{n}} p_{0}, & n=m, m+1, \ldots, \infty\end{cases}
+\end{equation}
+
+In terms of the traffic intensity $\rho = \frac{\lambda}{m\mu}$:
+\begin{equation}
+p_{n}= \begin{cases}\frac{(m \rho)^{n}}{n !} p_{0}, & n=1,2, \ldots, m-1 \\ \frac{\rho^{n} m^{m}}{m !} p_{0}, & n=m, m+1, \ldots, \infty\end{cases}
+\end{equation}

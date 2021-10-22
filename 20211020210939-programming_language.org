@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       524436da-d5f8-4e87-b1e0-16a888eb5761
+:END:
+#+title: Programming Language
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Here is some interesting programming language I am interested in.

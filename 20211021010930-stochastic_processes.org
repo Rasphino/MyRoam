@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       abfdc97c-62ae-40b4-9393-60629e84d331
+:END:
+#+title: Stochastic Processes
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+* Common Types of Stochastic Processes
+** Discrete-State and Continuous-State Processes
+#+begin_eg
+If the number of possible values is finite or countable, the process is called a discrete-state process. For example, the number of jobs in a system $n(t)$ can only take discrete values 0, 1, 2, .... Therefore, $n(t)$ is a discrete-state process. The waiting time $w(t)$, on the other hand, can take any value on the real line. Therefore, $w(t)$ is a continuous-state process.
+#+end_eg
+
+A discrete-state stochastic process is also called a *stochastic chain*.
+** [[id:3016d359-16d1-4244-889d-896faa1bf33e][Markov Processes]]
+** [[id:89fa2c9b-f6ac-4cc5-a1c7-50e5be3c07ab][Birth-Death Processes]]
+** Poisson Processes
