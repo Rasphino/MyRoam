@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       db026c34-ccaf-42c5-b806-d7b988098ac8
+:END:
+#+title: Trusted Code Base
+
+The part of the code in your security design that you must trust to be functioning correctly.

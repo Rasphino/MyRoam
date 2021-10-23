@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       bbbae717-077a-4b97-a885-c539c197cbf6
+:END:
+#+title: Covert Channel
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+Definition: An unintended channel of communication between 2 untrusted programs.
+
+* Examples
+** Shared Cache latency
+- Sender
+  + Send bit 1: Perform random memory access
+  + Send bit 0: Do nothing
+- Receiver
+  + Receive bit 1: If long read time for a fixed memory location
+  + Receive bit 0: If short read time for a fixed memory location

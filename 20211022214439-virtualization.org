@@ -1,0 +1,89 @@
+:PROPERTIES:
+:ID:       c0ad5baa-b074-4a43-942d-4c490652caa9
+:END:
+#+title: Virtualization
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+*Virtualization* solves the problem that running multiple computations on the shared physical devices.
+
+* Structure :ATTACH:
+There is a Virtual Machine Monitor (VMM) running on top of the hardware. VMM is a privileged software which goal is to make the Virtual Machine (which is an Operating System, together with applications) run transparently as the only software running on the underlying hardware.
+
+[[attachment:_20211022_233552screenshot.png]]
+
+* Virtualization for Security
+- Motivation: OS can be compromised.
+- Solution: Isolate OS, which leads to virtualization.
+- Goal: Isolation of code, data, and resources between:
+  + Guest VM and Host VMM (Vertically)
+    We need to make sure guest VM cannot see or change any resources that are directly managed by the VMM.
+  + Between VMs (Horizontally)
+- Assumption:
+  + Bug-free [[id:db026c34-ccaf-42c5-b806-d7b988098ac8][Trusted Code Base]] (TCB): Host OS, VMM
+  + Malware can affect the guest OS and application
+
+** Security Application of Virtualization
+- Virtual Machine Isolation
+  + Red-Green Systems
+  + Dynamic Analysis / Containment of Malware
+- Virtual Machine Introspection
+
+* Enforcement Goals for a VMM
+** Security VMM Goals
+- Complete Mediation
+  This means VMM should be able to intercept any access the VM is about to make in the outside world.
+  #+begin_eg
+  If my red VM which runs my video game is about to go read a file on the operating system, I should be able to intercept that operation and present a virtualized file system.
+  Or if the VM is about to make a network connection and I should be able to intercept because if I'm not intercepting then, there will be a security hole, and that VM can start to do things outside the scope and affects the another VM running on the same system, or it may start to open up network connections with external sites that may against your security goals of introspection and so on.
+  #+end_eg
+  This mediation includes intercepting all critical resources in the host OS that are being accessed, for example, trap on all MMU, DMA, and I/O accesses.
+- Transparency
+  This means the VM cannot know whether it's running virtualized or not. Transparency is further than compatibility.
+
+** Commercial VMM Goals
+- Performance
+- Compatibility
+  This means the VMM supports multiple commodity OSes, but the guest VM can detect it is whether running on top of a VMM or not.
+
+* Compatibility Challenges :ATTACH:
+Running an Operating System on a different privilege level than it was originally written to is challenging.
+#+begin_eg
+Take [[id:9516dcfa-57f9-4e4e-8761-2c04ef65dfe7][Linux]] as example. Originally, the Linux operating system is supposed to run at the highest level of privilege on a bare metal, what we call as ring 0 on the Intel architecture. And what is going to happen here is that there are instructions like =mov eax, (ebp)= which access memory through the register =ebp=. Behind the scenes, this is a virtual memory address to physical address translation. Linux maintains [[id:3d717913-0188-466e-89c0-26c8a50f2903][page table]] to keep the mapping between virtual addresses to physical addresses. So somebody has to set up this page table in memory, and the hardware needs to know what this data structure is to be able to use this information to do translations on the fly.
+Page table is highly privileged data structure, and needs to be accessed from ring 0.
+
+[[attachment:_20211023_004426screenshot.png]]
+
+Now if Linux is virtualized and is running on ring 1, how can it access the page table?
+#+end_eg
+
+One way to solve this problem is adding one level of indirection. When the low privilege program accessing anything beyond its privilege, an trap is generated. And the hardware will transfer control to program with higher privilege to deal with the trap, and in this case VMM will get control. Then VMM can emulate the intend behavior of the guest OS.
+
+** Difficulty of Instruction-Level Behavior Emulation on Intel CPU
+There are certain privileged instructions on Intel CPUs that do not generate graps but hebavior differently when calling in unprivileged environment, e.g. =popf=.
+
+*** Dynamic Binary Translation
+VMM looks at the entry point of the VM, and reads instruction by instruction until there is a jump. And VMM inspects are there any instructions that are privileged but do not generate traps. If there are, VMM will replace these instructions will =trap= instruction, which manually trigger a trap so VMM can emulate later on.
+Note that DBT changes the instructions in the VM. Therefore, if the VM inspects its code, it is able to detect that itself is running in a virtualized environment. This means DBT is not transparent.
+
+*** Paravirtualization
+The idea of paravirtualization is relying the help from the guest OS to pre-modify its code beforehand, so VMM not have to rely on runtime modification.
+
+
+* Limitation of Virtualization
+** Virtual Machine Based Rootkits :ATTACH:
+[[attachment:_20211023_125052screenshot.png]]
+
+Similar to the idea that we can leverage virtualization to inspect malware, an attacker can also virtualize the defender. And if the attacker get the highest privilege, it can disable the functionality of the VMI, so that VMI cannot inspect the guest OS.
+
+This leads to the problem of secure [[id:e3d54271-0219-4da9-8e7c-d028e62d6ef6][Root of Trust]].
+
+** Secret Leaking through [[id:bbbae717-077a-4b97-a885-c539c197cbf6][Covert Channels]] :ATTACH:
+Here is an example scenario that some information can be leaked through covert channel:
+
+#+begin_eg
+[[attachment:_20211023_130438screenshot.png]]
+
+For example, there is no nested virtualization and the lowest layer of privilege is running the honest defendant.
+There are two VM running on top of the VMM, one is the Normal VM which is running untrusted software, and the Secure Bank VM which stores the secret and can only connect to bank.com.
+Let's say there is an attacker takes control of the Normal VM, and finds an exploit to run aribitary code inside Seure Bank VM, can the attacker get the contents of the secret?
+#+end_eg

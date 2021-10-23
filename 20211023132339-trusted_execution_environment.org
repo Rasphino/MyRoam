@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       700c2f2b-5cdd-4cd7-8af8-b9a0cd409be7
+:END:
+#+title: Trusted Execution Environment
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+*Trusted Execution Environment* is a mechanism to ensure a hardware [[id:e3d54271-0219-4da9-8e7c-d028e62d6ef6][Root of Trust]].
+
+* Thread Model :ATTACH:
+In TEE, only the hardware is trusted because it is tamper-resistant from all software malware.
+
+[[attachment:_20211023_134003screenshot.png]]
