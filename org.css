@@ -99,10 +99,6 @@ code, kbd, pre, samp {
     font-size: 1em
 }
 
-figure {
-    margin: 1em 40px
-}
-
 hr {
     box-sizing: content-box;
     height: 0;
@@ -2490,6 +2486,11 @@ a {
 a:hover {
     color: #035;
     border-bottom: 1px dotted
+}
+
+.figure {
+    padding-top: 0em;
+    padding-bottom: 0em;
 }
 
 figure {

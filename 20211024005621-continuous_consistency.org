@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       84ddc232-4abf-42ff-9519-f17ea64a8a56
+:END:
+#+title: Continuous Consistency
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+*Continuous consistency* is a kind of [[id:8cfbbf63-8c3f-4f50-a294-ded599754084][consistency model]].

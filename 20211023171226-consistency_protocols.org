@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       d290c75e-36cd-4a81-99fc-67b010c53c79
+:END:
+#+title: Consistency Protocols
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+A *consistency protocols* describes an implementation of a specific [[id:8cfbbf63-8c3f-4f50-a294-ded599754084][consistency model]].
+
+* Consistency Protocols for [[id:84ddc232-4abf-42ff-9519-f17ea64a8a56][Continuous Consistency]]

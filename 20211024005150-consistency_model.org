@@ -1,0 +1,4 @@
+:PROPERTIES:
+:ID:       8cfbbf63-8c3f-4f50-a294-ded599754084
+:END:
+#+title: Consistency Model

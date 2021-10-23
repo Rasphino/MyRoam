@@ -1,0 +1,68 @@
+:PROPERTIES:
+:ID:       77da4cb4-2d63-40b0-9ab7-d0d9ccebe751
+:END:
+#+title: Eventual Consistency
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+*Eventual consistency* is a kind of [[id:8cfbbf63-8c3f-4f50-a294-ded599754084][consistency model]], which desribes that if no updates take place for a long time, all replicas will gradually converge to the same state.
+
+* System Model
+- Data stores are fully replicated
+- Each replica may accept read operations or write operations
+- Writes are re-executed at each replica
+- Writes may be undo or redo
+- Each replica has a write log: log of all writes applied
+- Writes are gossiped from replica to replica
+
+* Goal
+- All replicas see all writes (eventually): ensured by gossiping
+- All replicas apply writes in the same order (the serialization order)
+
+** Apply Writes in the Same Order :ATTACH:
+- If no restriction on the serialization order:
+  + Sort by timestamp
+  + Sort by hash value
+
+- In practical, needs to preserve [[id:d4ca4728-6e82-43ce-aea3-52da43b6f77b][happened-before relation]]:
+  #+begin_eg
+  Take replicated file system as an example. There are two writes, =w1= and =w2=. =w1= creates a temporary file, and =w2= deletes this file. In this case, =w1= happened before =w2=.
+
+  If our serialization order doesn't preserve this happened before relation, then =w2= might happened before =w1=, which means we try to delete a non-existent file then create it. So the end result is that this temporary file will remain in the file system. And this is not the desirable behavior from the application's perspective.
+  #+end_eg
+
+  1. Run logical clock protocol in the system;
+  2. Associate logical timestamps to the writes;
+  3. Sort on associated logical timestamp.
+
+  #+begin_eg
+  [[attachment:_20211023_162024screenshot.png]]
+
+  If there are write logs with same logical clock value, this means that there are no happened-before relation among them. We can order them arbitrarily (but in a deterministic way =:NTC:=).
+  #+end_eg
+
+
+* Committed vs. Tentative Writes :ATTACH:
+In order to converge to the final solution order, sometimes we need to undo the writes and then redo them in a different ordering.
+
+- Committed write: Its position in the write log will never change again.
+- Tentative write: Its final position is still to be determined, and its effect may change later.
+
+#+name: eg:committed&tentative
+#+begin_eg
+[[attachment:_20211023_164523screenshot.png]]
+#+end_eg
+
+** Determine Committed or Tentative Writes :ATTACH:
+In previous [[eg:committed&tentative][example]], how can Replica A be sure that =(A,2)= is a committed write?
+
+One way to solve this problem is assigned a special replica as *sequencer*. This sequencer assign consecutive integers as *commit number*, i.e. position in the final serialization, for writes.
+
+#+begin_eg
+[[attachment:_20211023_170201screenshot.png]]
+
+In this example, replica =C= is the sequencer. At beginning, writes in =A= and =B= are tentative, i.e. without commit number.
+
+=A= gossips with =C=, =C= will assign commit number 1 and 2 to these two writes. And since =(A, 2, 1)= with commit number 1 is at position 1, =(A, 7, 2)= with commit number 2 is at position 2, =A= knows these two writes are committed.
+
+=B= then gossips with =C=, =C= will assign commit number 3, 4, 5 to these three writes. And since the commit number is not consecutive in =B=, these three writes are still tentative until =B= gets writes with commit number 1 and 2.
+#+end_eg

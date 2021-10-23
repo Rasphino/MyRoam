@@ -1,0 +1,4 @@
+:PROPERTIES:
+:ID:       d4ca4728-6e82-43ce-aea3-52da43b6f77b
+:END:
+#+title: Happened-Before Relation
