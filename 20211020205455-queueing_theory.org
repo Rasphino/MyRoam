@@ -18,7 +18,7 @@ A/S/m/B/K/SD
 
 * Rules For All Queues
 - $\tau$: interarrival time
-- $\lambda$: mean arrival rate, = $1/E[\tau]$. In some system, it can be a function of the state of the system, i.e. [[id:d9e85261-b9d3-4bef-b61d-d01c30825b73][Load-dependent Service Center]].
+- $\lambda$: mean arrival rate, = $1/E[\tau]$. In some system, it can be a function of the state of the system, i.e. [[id:d9e85261-b9d3-4bef-b61d-d01c30825b73][Load-Dependent Service Center]].
 - $s$: service time per job
 - $\mu$: mean service rate per server, = $1/E[S]$. Total service rate for $m$ servers is $m\mu$
 - $n$: number of jobs in the system, also called *queue length*. $n = n_q + n_s$, i.e. queue length includes jobs in service and those waiting in the queue.

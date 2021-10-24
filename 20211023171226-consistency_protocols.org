@@ -7,3 +7,27 @@
 A *consistency protocols* describes an implementation of a specific [[id:8cfbbf63-8c3f-4f50-a294-ded599754084][consistency model]].
 
 * Consistency Protocols for [[id:84ddc232-4abf-42ff-9519-f17ea64a8a56][Continuous Consistency]]
+** Bounding Order Error
+Basically, order error = number of tentative writes. To reduce the order error, we need to reduce tentative writes.
+The number of tentative writes is bounded by specifying the maximal length of the queue of tentative writes.
+When the length of this local queue exceeds a specified maximal length. At that point, a replica will no longer accept any newly submitted writes, but will instead attempt to commit tentative writes by negotiating with other servers in which order its writes should be executed. In other words, we need to enforce a globally consistent ordering of tentative writes.
+
+** Bounding Temporal Error 
+Temporal error = staleness of the data.
+One way to reduce the staleness is use real-time vector clock (assume loosely synchronized clock).
+
+[[file:images/_20211024_122148screenshot.png]]
+
+If the staleness is near the limit, the replica can actively pull from other nodes.
+
+** Bounding Numerical Error 
+In this case, every replica sets a buffer with length equals to the max numerical error bound.
+
+The following example bounds the numerical error of the top replica, but we can run this protocol on every replicas to let then has numerical bound:
+#+begin_eg
+[[file:images/_20211024_164412screenshot.png]]
+Assume there are 5 replicas in the system, and we want to limit the numerical error of the top replica to, for example 20. We then divide 20 to $5-1=4$ portions with each length 5 to other replicas.
+
+[[file:images/_20211024_164428screenshot.png]]
+Once the replicas on the bottom collect 5 writes, it push the updates to the top replica.
+#+end_eg

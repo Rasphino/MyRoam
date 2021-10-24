@@ -1,5 +1,5 @@
 :PROPERTIES:
 :ID:       d9e85261-b9d3-4bef-b61d-d01c30825b73
 :END:
-#+title: Load-dependent Service Center
+#+title: Load-Dependent Service Center
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>

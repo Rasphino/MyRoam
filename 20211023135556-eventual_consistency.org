@@ -18,7 +18,7 @@
 - All replicas see all writes (eventually): ensured by gossiping
 - All replicas apply writes in the same order (the serialization order)
 
-** Apply Writes in the Same Order :ATTACH:
+** Apply Writes in the Same Order 
 - If no restriction on the serialization order:
   + Sort by timestamp
   + Sort by hash value
@@ -35,13 +35,13 @@
   3. Sort on associated logical timestamp.
 
   #+begin_eg
-  [[attachment:_20211023_162024screenshot.png]]
+  [[file:images/_20211023_162024screenshot.png]]
 
   If there are write logs with same logical clock value, this means that there are no happened-before relation among them. We can order them arbitrarily (but in a deterministic way =:NTC:=).
   #+end_eg
 
 
-* Committed vs. Tentative Writes :ATTACH:
+* Committed vs. Tentative Writes 
 In order to converge to the final solution order, sometimes we need to undo the writes and then redo them in a different ordering.
 
 - Committed write: Its position in the write log will never change again.
@@ -49,16 +49,16 @@ In order to converge to the final solution order, sometimes we need to undo the 
 
 #+name: eg:committed&tentative
 #+begin_eg
-[[attachment:_20211023_164523screenshot.png]]
+[[file:images/_20211023_164523screenshot.png]]
 #+end_eg
 
-** Determine Committed or Tentative Writes :ATTACH:
+** Determine Committed or Tentative Writes 
 In previous [[eg:committed&tentative][example]], how can Replica A be sure that =(A,2)= is a committed write?
 
 One way to solve this problem is assigned a special replica as *sequencer*. This sequencer assign consecutive integers as *commit number*, i.e. position in the final serialization, for writes.
 
 #+begin_eg
-[[attachment:_20211023_170201screenshot.png]]
+[[file:images/_20211023_170201screenshot.png]]
 
 In this example, replica =C= is the sequencer. At beginning, writes in =A= and =B= are tentative, i.e. without commit number.
 

@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       bee19d13-1fb2-4154-8b69-a25a1432ffd1
+:END:
+#+title: Distributed Consensus
+
+*Distributed consensus* is a very basic building block that allows nodes in a system to agree on something.
+
+| [[id:d0348a82-1637-450c-9125-fc46fef7d5e5][Failure]]/[[id:c00c0176-c7a8-4e74-93b9-f489301fa1b5][Timing]] Model                               | Consensus Protocol                                               |
+|----------------------------------------------------+------------------------------------------------------------------|
+| Crash failures; Reliable channels; Synchronous     | Deterministic for $n \geq f + 1$                                 |
+| No failures; Unreliable channels; Synchronous      | Impossible (Randomized algorithm with $\frac{1}{r}$ error prob.) |
+| Crash failures; Reliable channels; asynchronous    | Impossible (the FLP theorem, no termination guarantee)           |
+| Byzantine failures; Reliable channels; Synchronous | If $n \leq 3f$, impossible; Otherwise, deterministic             |

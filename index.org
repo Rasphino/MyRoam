@@ -1,9 +1,13 @@
 #+TITLE: Sitemap for project org-roam
 
 - [[file:20211021110238-birth_death_processes.org][Birth-Death Processes]]
+- [[file:20211024005150-consistency_model.org][Consistency Model]]
 - [[file:20211023171226-consistency_protocols.org][Consistency Protocols]]
+- [[file:20211024005621-continuous_consistency.org][Continuous Consistency]]
 - [[file:20211023130306-covert_channel.org][Covert Channel]]
+- [[file:20211024170537-distributed_consensus.org][Distributed Consensus]]
 - [[file:20211023135556-eventual_consistency.org][Eventual Consistency]]
+- [[file:20211024165201-fault_tolerance.org][Fault Tolerance]]
 - [[file:20211023160532-happened_before_relation.org][Happened-Before Relation]]
 - [[file:20211023003248-linux.org][Linux]]
 - [[file:20211021001421-little_s_law.org][Little's Law]]

@@ -1,0 +1,35 @@
+:PROPERTIES:
+:ID:       3008ffc6-57b5-4365-b040-4d900680d638
+:END:
+#+title: Fault Tolerance
+
+* Motivation
+- Being able to tolerate fault is itself a motivation for distributed systems
+- Tolerating failures are even more important in distributed systems than in non-distributed systems
+  + Failures are the norm instead of exception: with many machines, almost always some of them will fail
+
+* Failure Models
+:PROPERTIES:
+:ID:       d0348a82-1637-450c-9125-fc46fef7d5e5
+:END:
+- Nodes
+  + Crash failure
+  + Byzantine failure
+
+- Communication channels
+  + No failures: reliable message delivery
+  + unreliable: may drop messages
+
+* Timing Models
+:PROPERTIES:
+:ID:       c00c0176-c7a8-4e74-93b9-f489301fa1b5
+:END:
+- Synchronous model
+  1. Message delay is bounded and is known
+  2. Node processing speed is guaranteed
+  3. Can achieve accurate failure detection
+
+- Asynchronous model
+  1. Message delay is unbounded and node speed is not guaranteed
+
+* [[id:bee19d13-1fb2-4154-8b69-a25a1432ffd1][Distributed Consensus]]
