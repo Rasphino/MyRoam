@@ -1,0 +1,30 @@
+:PROPERTIES:
+:ID:       7356852f-11df-4faa-9500-989ab15822e6
+:END:
+#+title: Thread
+
+A thread is a path of execution within a [[id:ff980bea-97fc-4410-8e14-85f874851e11][process]]. A process can contain multiple threads.
+
+Threads are not independent of each other as they share the code, data, and resources. But each thread has its own PC, registers, and stack.
+
+[[file:images/_20211026_001150screenshot.png]]
+
+
+* User-Level Thread
+User-level thread is implemented and managed by the user level library. The OS doesn't knows about these threads.
+- Advantages:
+  + Can be implemented on an OS that doesn't support multithreading.
+  + Simple to create since no intervention of kernel is needed.
+  + Switching between threads is fast.
+
+- Disadvantages:
+  + If one thread doing block operation, the entire process (and its other threads) will be blocked.
+
+
+* Kernel-Level Thread
+The kernel will use Thread Control Block (TCB) to keep track of these threads.
+- Advantages:
+  + Scheduler can give more time to proceees with large number of threads.
+  + One thread blocks will not block the entire process.
+- Disadvantages:
+  + Slow to switch.

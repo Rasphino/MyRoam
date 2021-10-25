@@ -1,0 +1,40 @@
+:PROPERTIES:
+:ID:       7388512b-f4cd-477d-b762-76d693737936
+:END:
+#+title: Inter-Process Communication
+
+*Inter-Process Communication (IPC)* is a mechanism that allows [[id:ff980bea-97fc-4410-8e14-85f874851e11][processes]] to communicate with each other and synchronize their actions.
+
+There are two fundamental models of inter-process communication: shared memory and message passing. In the shared-memory model, a region of memory that is shared by the cooperating processes is established. Processes can then exchange information by reading and writing data to the shared region. In the message-passing model, communication takes place by means of messages exchanged between the cooperating processes.
+
+[[file:images/_20211025_233637screenshot.png]]
+
+
+* IPC in Shared-Memory System
+Typically, a shared-memory region resides in the address space of the process creating the shared-memory segment. Other processes that wish to communicate using this shared-memory segment must attach it to their address space.
+
+Normally, the operating system tries to prevent one process from accessing another process’s memory. Shared memory requires that two or more processes agree to remove this restriction. They can then exchange information by reading and writing data in the shared areas. The form of the data and the location are determined by these processes and are not under the operating system’s control. The processes are also responsible for ensuring that they are not writing to the same location simultaneously.
+
+* IPC in Message-Passing System
+Message passing provides a mechanism to allow processes to communicate and to synchronize their actions without sharing the same address space. It is particularly useful in a distributed environment, where the communicating processes may reside on different computers connected by a network. For example, an Internet chat program could be designed so that chat participants communicate with one another by exchanging messages.
+
+A message-passing facility provides at least two operations:
+- =send(message)=
+- =receive(message)=
+
+Messages sent by a process can be either fixed or variable in size. If only fixed-sized messages can be sent, the system-level implementation is straight- forward. This restriction, however, makes the task of programming more difficult. Conversely, variable-sized messages require a more complex system-level implementation, but the programming task becomes simpler. This is a common kind of tradeoff seen throughout operating system design.
+
+If processes =P= and =Q= want to communicate, they must send messages to and receive messages from each other: a *communication link* must exist between them. This link can be implemented in a variety of ways. We are concerned here not with the link’s physical implementation (such as shared memory, hardware bus, or network, which are covered in Chapter 19) but rather with its logical implementation. Here are several methods for logically implementing a link and the =send()= / =receive()= operations:
+- Direct or indirect communication
+- Synchronous or asynchronous communication
+- Automatic or explicit buffering
+
+** Direct Communication
+Under direct communication, each process that wants to communicate must explicitly name the recipient or sender of the communication. In this scheme, the =send()= and =receive()= primitives are defined as:
+- =send(P, message)=: Send a message to process =P=.
+- =receive(Q, message)=: Receive a message from process =Q=.
+
+** Indirect Communication
+With indirect communication, the messages are sent to and received from mailboxes, or ports. A mailbox can be viewed abstractly as an object into which messages can be placed by processes and from which messages can be removed. Each mailbox has a unique identification. A process can communicate with another process via a number of different mailboxes, but two processes can communicate only if they have a shared mailbox. The =send()= and =receive()= primitives are defined as follows:
+- =send(A, message)=: Send a message to mailbox =A=.
+- =receive(A, message)=: Receive a message from mailbox =A=.

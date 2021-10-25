@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       b66d92b1-eec2-45dc-999a-3fc90fc43b16
+:END:
+#+title: Thread Pool
+
+The general idea behind a thread pool is to create a number of [[id:7356852f-11df-4faa-9500-989ab15822e6][threads]] at start-up and place them into a pool, where they sit and wait for work. When a server receives a request, rather than creating a thread, it instead submits the request to the thread pool and resumes waiting for additional requests. If there is an available thread in the pool, it is awakened, and the request is serviced immediately. If the pool contains no available thread, the task is queued until one becomes free. Once a thread completes its service, it returns to the pool and awaits more work. Thread pools work well when the tasks submitted to the pool can be executed asynchronously.
+
+Thread pools offer these benefits:
+1. Servicing a request with an existing thread is often faster than waiting to create a thread.
+2. A thread pool limits the number of threads that exist at any one point. This is particularly important on systems that cannot support a large number of concurrent threads.
+3. Separating the task to be performed from the mechanics of creating the task allows us to use different strategies for running the task. For example, the task could be scheduled to execute after a time delay or to execute periodically.

@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       ff980bea-97fc-4410-8e14-85f874851e11
+:END:
+#+title: Process 
+
+In [[id:2fb81a05-68e8-49bc-8906-3e0812e37069][Operating System]], a process is a program in execution, and a single program can create many processes when run multiple times.
+
+The memory layout of a process is typically divided into multiple sections, include:
+- Text Section: the executable code
+- Data Section: global variables
+- Heap Section: memory that is dynamically allocated during program run time
+- Stack Section: temporary data storage when invoking functions (such as function parameters, return addresses, and local variables)
+
+* Process Control Block (PCB)
+As the OS supports multi-programming, it needs to keep track of all the processes. For this task, PCB is used to track the process's execution status.
+
+A PCB contains the following information:
+1. Process Id: A unique identifier
+2. Process State: The current state of the process
+3. Program Counter: Store the address of next instruction to be executed
+4. Registers: CPU registers
+5. Memory Limits: Information about memory management system, e.g., page tables, etc.
+6. Open Files List: List of files opened for this process
+7. Miscellaneous Accounting and Status Data
+
+Every process corresponds to a Process Control Block (PCB) in OS.
+
+
+* States of Process :ATTACH:
+[[file:images/_20211025_215247screenshot.png]]
+
+- New (Create): The process is being created.
+- Ready: Process is ready to run and is waiting to get CPU time for execution.
+- Running: Process that is in execution.
+- Blocked/Waiting: Process is waiting for some event to occur (e.g., I/O completion or reception of a signal).
+- Terminated: Process finishs execution.
+- Suspend Ready: Process that was initially in the ready state, but is swapped out to external storage.
+- Senspend Blocked/Waiting: Process that was initially in the blocked state, but is swapped out to external storage.
+
+
+* Context Switch
+[[file:images/_20211025_232709screenshot.png]]

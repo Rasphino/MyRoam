@@ -1,0 +1,18 @@
+:PROPERTIES:
+:ID:       6c81d1d6-a20c-490f-94f3-b4cbe7fc93ef
+:END:
+#+title: Process Synchronization
+
+* Critical Section
+:PROPERTIES:
+:ID:       96e0c8d4-961b-463c-9cce-cf2d8bc6f87b
+:END:
+Critical section is a code segment that can be accessed by only one process at a time. Critical section contains shared variables which need to be synchronized to maintain consistency of data variables.
+
+* Race Condition
+:PROPERTIES:
+:ID:       95ae3990-9105-4104-9bc0-99a1542efe32
+:END:
+A *race condition* or *race hazard* arises in software when a computer program, to operate properly, depends on the sequence or timing of the program's [[id:ff980bea-97fc-4410-8e14-85f874851e11][processes]] or [[id:7356852f-11df-4faa-9500-989ab15822e6][threads]].
+
+Critical race conditions often happen when the processes or threads depend on some shared state. Operations upon shared states are done in critical sections that must be mutually exclusive. Failure to obey this rule can corrupt the shared state.
