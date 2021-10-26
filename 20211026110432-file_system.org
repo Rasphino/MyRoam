@@ -1,0 +1,45 @@
+:PROPERTIES:
+:ID:       20d514d8-b103-467f-8c7f-9c19347b0d18
+:END:
+#+title: File System
+
+A *file system* describes how files are mapped onto physical-storage devices in an [[id:2fb81a05-68e8-49bc-8906-3e0812e37069][Operating System]].
+
+
+* File
+File is a contiguous logical address space for storing information.
+
+** File Attributes
+- Name
+- Identifier: unique tag identifies file within file system
+- Type
+- Location
+- Size
+- Protection
+- Time, Data and User Identification
+- ...
+
+** File Operation
+- create
+- open
+- read/write
+- seek
+- delete
+- truncate
+
+*** Open Files
+OS maintains a *open-file table* contains information, e.g., location on disk and file open count, about all open files. Each process also maintains a *per-process table* to record information such as current location pointer.
+
+[[file:images/File/_20211026_111327screenshot.png]]
+
+A *file descriptor* is an index in the per-process file descriptor table. Each entry in this table contains a reference to a file object in the system-wide open-file table. Each file object contains a reference to an i-node, stored in the i-node table.
+
+* TODO Directory
+
+* Protection
+When information is stored in a computer system, we want to keep it safe from physical damage (the issue of reliability) and improper access (the issue of protection).
+
+** Access Control
+The most common approach to the protection problem is to make access dependent on the identity of the user.
+
+The most general scheme to implement identity- dependent access is to associate with each file and directory an access-control list (ACL) specifying user names and the types of access allowed for each user.

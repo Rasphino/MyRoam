@@ -1,0 +1,18 @@
+:PROPERTIES:
+:ID:       9d0bbd09-5eec-4239-b47f-ad5af21e1c0a
+:END:
+#+title: RAID
+
+*Redundant Arrays of Independent Disks (RAIDs)* are commonly used t oaddress the performance and reliability issues of disk.
+
+* RAID Levels
+
+[[file:images/RAID_Levels/_20211026_104821screenshot.png]]
+
+- Raid 0: drive arrays with striping at the level of blocks but without any redundancy
+- Raid 1: drive mirroring
+- Raid 4: memory-style ECC organization
+- Raid 5: block-interleaved distributed parity, differs from level 4 in that it spreads data and parity among all $N + 1$ drives
+- Raid 6: P + Q redundancy scheme, is much like RAID level 5 but stores extra redundant information to guard against multiple drive failures
+- Raid 0+1 & 1+0
+  [[file:images/RAID_Levels/_20211026_104837screenshot.png]]

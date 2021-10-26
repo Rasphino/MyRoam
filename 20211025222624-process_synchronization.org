@@ -3,16 +3,47 @@
 :END:
 #+title: Process Synchronization
 
-* Critical Section
-:PROPERTIES:
-:ID:       96e0c8d4-961b-463c-9cce-cf2d8bc6f87b
-:END:
-Critical section is a code segment that can be accessed by only one process at a time. Critical section contains shared variables which need to be synchronized to maintain consistency of data variables.
+* Background
+With [[id:74485a68-36c9-426d-b839-ff7438af9238][CPU Scheduling]], CPU scheduler switches rapidly between processes to provide *concurrent* execution. This means that one process may only partially complete execution before another process is scheduled.
 
-* Race Condition
+Additionally, with *parallel* execution, in which two instruction streams (representing different processes) execute simultaneously on separate processing cores.
+
+Concurrent or parallel execution can contribute to issues involving the integrity of data shared by several processes.
+
+** Race Condition
 :PROPERTIES:
 :ID:       95ae3990-9105-4104-9bc0-99a1542efe32
 :END:
 A *race condition* or *race hazard* arises in software when a computer program, to operate properly, depends on the sequence or timing of the program's [[id:ff980bea-97fc-4410-8e14-85f874851e11][processes]] or [[id:7356852f-11df-4faa-9500-989ab15822e6][threads]].
 
 Critical race conditions often happen when the processes or threads depend on some shared state. Operations upon shared states are done in critical sections that must be mutually exclusive. Failure to obey this rule can corrupt the shared state.
+
+
+* The Critical Section Problem
+:PROPERTIES:
+:ID:       96e0c8d4-961b-463c-9cce-cf2d8bc6f87b
+:END:
+Consider a system consisting of $n$ processes $\left\{P_{0}, P_{1}, \ldots, P_{n-1}\right\}$. Each process has a segment of code, called a critical section, in which the process may be accessing — and updating — data that is shared with at least one other process. The important feature of the system is that, when one process is executing in its critical section, no other process is allowed to execute in its critical section. That is, no two processes are executing in their critical sections at the same time. The critical-section problem is to design a protocol that the processes can use to synchronize their activity so as to cooperatively share data. Each process must request permission to enter its critical section. The section of code implementing this request is the *entry section*. The critical section may be followed by an *exit section*. The remaining code is the *remainder section*.
+
+A solution to the critical-section problem must satisfy the following three requirements:
+1. Mutual exclusion. If process $P_i$ is executing in its critical section, then no other processes can be executing in their critical sections.
+2. Progress. If no process is executing in its critical section and some processes wish to enter their critical sections, then only those processes that are not executing in their remainder sections can participate in deciding which will enter its critical section next, and this selection cannot be postponed indefinitely.
+3. Bounded waiting. There exists a bound, or limit, on the number of times that other processes are allowed to enter their critical sections after a process has made a request to enter its critical section and before that request is granted.
+
+
+* Synchronization Tools
+** TODO Hardware Support for Synchronization
+*** Memory Barriers
+*** Atomical Hardware Instructions
+*** Atomic Variables
+** [[id:3cbc58a6-966a-4e72-bbc1-9ee9926f732a][Mutex Locks]]
+** [[id:674b6ab7-bb63-4705-b231-09a80ef9cb1f][Semaphores]]
+** Monitors
+A monitor is an abstract data type that provides a high-level form of process synchronization. A monitor uses condition variables that allow processes to wait for certain conditions to become true and to signal one another when conditions have been set to true.
+
+* Liveness Issues
+*Liveness* refers to a set of properties that a system must satisfy to ensure that processes make progress during their execution life cycle. A process waiting indefinitely under the circumstances just described is an example of a “liveness failure.”
+
+There are many different forms of liveness failure, includes:
+- [[id:35a6182b-19e4-49fa-8437-2d72f96fd1dd][Deadlock]]
+- Priority Inversion

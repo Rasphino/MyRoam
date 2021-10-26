@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       3cbc58a6-966a-4e72-bbc1-9ee9926f732a
+:END:
+#+title: Mutex Lock
+
+*Mutex Lock* provides mutual exclusion by requiring that a process acquire a lock before entering a critical section and release the lock on exiting the critical section.

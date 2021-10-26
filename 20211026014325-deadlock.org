@@ -1,0 +1,42 @@
+:PROPERTIES:
+:ID:       35a6182b-19e4-49fa-8437-2d72f96fd1dd
+:END:
+#+title: Deadlock
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org.css"/>
+
+
+In a multiprogramming environment, several threads may compete for a finite number of resources. A thread requests resources; if the resources are not available at that time, the thread enters a waiting state. Sometimes, a waiting thread can never again change state, because the resources it has requested are held by other waiting threads. This situation is called a *deadlock*.
+
+* Necessary Conditions
+A deadlock situation can arise if the following four conditions hold simultaneously in a system:
+1. Mutual exclusion. At least one resource must be held in a nonsharable mode; that is, only one thread at a time can use the resource. If another thread requests that resource, the requesting thread must be delayed until the resource has been released.
+2. Hold and wait. A thread must be holding at least one resource and waiting to acquire additional resources that are currently being held by other threads.
+3. No preemption. Resources cannot be preempted; that is, a resource can be released only voluntarily by the thread holding it, after that thread has completed its task.
+4. Circular wait. A set $\left\{T_{0}, T_{1}, \ldots, T_{n}\right\}$ of waiting threads must exist such that $T_0$ is waiting for a resource held by $T_1$, $T_1$ is waiting for a resource held by $T_2, \ldots, T_{n−1}$ is waiting for a resource held by $T_n$, and $T_n$ is waiting for a resource held by $T_0$.
+
+* Handling Deadlocks
+- Deadlock prevention:
+  Deadlock prevention ensures that at least one of the necessary conditions cannot hold.
+  One way to avoid circular wait is impose a total ordering of all resource types and to require that each thread requests resources in an increasing order of enumeration
+  It is also important to note that imposing a lock ordering does not guarantee deadlock prevention if locks can be acquired dynamically.
+  #+begin_eg
+  For example, the following function, if called with =transaction(A, B, 25)= and =transaction(B, A, 40)= simultaneously, a deadlock may still happened.
+
+  #+begin_src c
+void transaction(Account from, Account to, double amount) {
+    mutex lock1, lock2;
+    lock1 = get_lock(from);
+    lock2 = get_lock(to);
+    acquire(lock1);
+        acquire(lock2);
+            withdraw(from, amount);
+            deposit(to, amount);
+        release(lock2);
+    release(lock1);
+}
+  #+end_src
+  #+end_eg
+
+- Deadlock avoidance:
+  Deadlock avoidance requires that the operating system be given additional information in advance concerning which resources a thread will request and use during its lifetime. With this additional knowledge, the operating system can decide for each request whether or not the thread should wait.
+-

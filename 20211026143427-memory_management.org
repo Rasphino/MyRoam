@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       82a7dd16-24e9-4695-8cbd-92fe4b3ae0f9
+:END:
+#+title: Memory Management
+
+*Memory Management* is one part of [[id:2fb81a05-68e8-49bc-8906-3e0812e37069][Operating System]].

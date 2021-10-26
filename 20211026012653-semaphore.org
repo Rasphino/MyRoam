@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       674b6ab7-bb63-4705-b231-09a80ef9cb1f
+:END:
+#+title: Semaphore
+
+*Semaphores*, like [[id:3cbc58a6-966a-4e72-bbc1-9ee9926f732a][mutex locks]], can be used to provide mutual exclusion. However, whereas a mutex lock has a binary value that indicates if the lock is available or not, a semaphore has an integer value and can therefore be used to solve a variety of synchronization problems.
