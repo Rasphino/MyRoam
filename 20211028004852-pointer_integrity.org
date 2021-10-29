@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       75e3b1b5-74c7-44ba-b6a1-babbea49e051
+:END:
+#+title: Pointer Integrity
+
+1. Enforce that *code pointers* point to code-segment only
+2. Enforce that control transfer use code pointers

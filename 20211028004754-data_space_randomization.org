@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       bf59406b-79af-4875-837d-615cc82d4802
+:END:
+#+title: Data Space Randomization
+
+Goal:
+- Randomize the Data Representaion to defeat data corruption

@@ -1,0 +1,14 @@
+:PROPERTIES:
+:ID:       45ee1c14-0008-4627-9369-074baef2f03f
+:END:
+#+title: Address Space Layout Randomization
+
+Assumption:
+- Attacker can write arbitrary places
+
+Defense Goal:
+- Attack can't predict location accessed in attack
+
+Mechanism:
+- At load time, randomize stack, code, bss, etc.
+- Randomize heap location at runtime

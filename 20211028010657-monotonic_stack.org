@@ -1,0 +1,67 @@
+:PROPERTIES:
+:ID:       f52c7dd5-9644-4ea2-bc2a-0f71be6c5e82
+:END:
+#+title: Monotonic Stack
+
+Monotonic stack tries to maintains an increasing or decreasing order in the stack.
+
+* Leetcode [[https://leetcode-cn.com/problems/next-greater-element-i/][No. 494 Next Greater Element I]]
+#+begin_src java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class L494 {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int[] t = nextGreaterElement(nums2);
+        int[] ans = new int[nums1.length];
+
+        for (int i = 0; i < nums1.length; i++) {
+            for (int j = 0; j < nums2.length; j++) {
+                if (nums1[i] == nums2[j]) {
+                    ans[i] = t[j];
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private int[] nextGreaterElement(int[] nums) {
+        int[] ans = new int[nums.length];
+        Deque<Integer> s = new ArrayDeque<>();
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && s.peek() <= nums[i]) s.pop();
+            ans[i] = s.isEmpty() ? -1 : s.peek();
+            s.push(nums[i]);
+        }
+        return ans;
+    }
+}
+#+end_src
+
+
+* Leetcode [[https://leetcode-cn.com/problems/next-greater-element-ii/][503. Next Greater Element II]]
+#+begin_src java
+class L503 {
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        Deque<Integer> s = new ArrayDeque<>();
+
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            while (!s.isEmpty() && s.peek() <= nums[i % n]) s.pop();
+            ans[i % n] = s.isEmpty() ? -1 : s.peek();
+            s.push(nums[i % n]);
+        }
+
+        return ans;
+    }
+}
+#+end_src
+
+This problem needs to calculate all next greater number for a *circular* integer array.
+
+One way to deal with this requirement is duplicate the input array and concat them. For example, if the input array is =[1, 2, 3]=, we construct =[1, 2, 3, 1, 2, 3]=. And then we can solve the problem using monotonic stack.
+
+Or, we don't need to construct the new array, instead we can use =%= to simulate this behavior.

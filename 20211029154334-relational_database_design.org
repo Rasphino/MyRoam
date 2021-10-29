@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       7f558c05-b7b1-4944-9a63-5f80cb730528
+:END:
+#+title: Ralational Database Design
+
+Goal for a relation database design is:
+- [[id:76bd98f8-9496-4137-98d5-2b21908e237e][Boyce-Codd Normal Form]]
+- Lossless Join
+- Dependency Preservation
+
+If we cannot archieve this, we accept one of:
+- Lack of dependency preservation
+- Redundancy due to use of [[id:edab4637-3797-4f72-9b9b-9952c98b102f][3NF]]

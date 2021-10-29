@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       bc782dce-2274-4497-8e92-8c90c8fb6bb0
+:END:
+#+title: Transaction
+
+* Transaction Properties
+- Atomicity
+- Isolation
+- Consistency
+- Durability

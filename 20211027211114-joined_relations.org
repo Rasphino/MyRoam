@@ -1,0 +1,83 @@
+:PROPERTIES:
+:ID:       fde6e8e5-f50a-4360-8bbf-ba4bb6a4f408
+:END:
+#+title: Joined Relations
+#+LATEX_HEADER: \usepackage{unicode-math}
+
+In [[id:f66438c9-f45d-4d47-88c6-3862933b9ff4][database system]], *join operations* take two relations as input and return another relation as a result.
+
+* Join Condition
+Join condition defines which tuples in the two relations match, and what attributes are present in the result of the join.
+
+- natural
+- on <predicate>
+- using $\left(A_{1}, A_{2}, \ldots, A_{n}\right)$
+
+
+* Join Type
+Join type defines how tuples in each relation that do not match any tuple in the other relation are treated. There are four join types:
+- Inner Join: $\Join$
+- Left Outer Join: ⟕
+- Right Outer Join: ⟖
+- Full Outer Join: ⟗
+
+#+begin_eg
+Table *loan*
+| loan_number | branch_name | amount |
+|-------------+-------------+--------|
+| L_170       | Downtown    |   3000 |
+| L_230       | Redwood     |   4000 |
+| *L_260*     | Perryridge  |   1700 |
+
+Table *borrower*
+⟕| customer_name | loan_number |
+|---------------+-------------|
+| Jones         | L_170       |
+| Smith         | L_230       |
+| Hayes         | *L_155*     |
+#+end_eg
+
+
+** Innter Join
+#+begin_eg
+Table *loan $\Join$ borrower*
+| loan_number | branch_name | amount | customer_name |
+|-------------+-------------+--------+---------------|
+| L_170       | Downtown    |   3000 | Jones         |
+| L_230       | Redwood     |   4000 | Smith         |
+#+end_eg
+
+
+** Left Outer Join
+\[
+R \leftouterjoin S = (R \Join S) \cup\left(\left(R-\Pi_{R}(R \Join S)\right) \times\{(n u l l, \ldots)\}\right)
+\]
+#+begin_eg
+Table *loan ⟕ borrower*
+| loan_number | branch_name | amount | customer_name |
+|-------------+-------------+--------+---------------|
+| L_170       | Downtown    |   3000 | Jones         |
+| L_230       | Redwood     |   4000 | Smith         |
+| *L_260*     | Perryridge  |   1700 | *null*        |
+#+end_eg
+
+
+** Right Outer Join
+#+begin_eg
+Table *loan ⟖ borrower*
+| loan_number | branch_name | amount | customer_name |
+|-------------+-------------+--------+---------------|
+| L_170       | Downtown    |   3000 | Jones         |
+| L_230       | Redwood     |   4000 | Smith         |
+| *L_155*     | *null*      | *null* | Hayes         |
+#+end_eg
+
+
+** Full Outer Join
+Table *loan ⟗ borrower*
+| loan_number | branch_name | amount | customer_name |
+|-------------+-------------+--------+---------------|
+| L_170       | Downtown    |   3000 | Jones         |
+| L_230       | Redwood     |   4000 | Smith         |
+| *L_260*     | Perryridge  |   1700 | *null*        |
+| *L_155*     | *null*      | *null* | Hayes         |

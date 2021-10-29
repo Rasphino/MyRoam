@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       86a81807-9dae-458d-a181-3e64a104c0a2
+:END:
+#+title: Instruction Set Randomization
+
+Goal:
+- Randomize machine instruction encoding to defeat foreign code injection

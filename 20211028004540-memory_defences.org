@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       657182da-9e96-476a-a9b4-3dba48a75820
+:END:
+#+title: Memory Defences
+
+Some ways to defense memory exploits:
+- [[id:00546e2e-eadf-45f3-9d33-248ffdea3268][Memory Safety]]
+- [[id:531d3c4c-c3b5-48e4-ba87-c2b67d0244d1][Control-Flow Integrity]]
+- Randomization
+  + [[id:45ee1c14-0008-4627-9369-074baef2f03f][Address Space Layout Randomization]]
+  + [[id:bf59406b-79af-4875-837d-615cc82d4802][Data Space Randomization]]
+  + [[id:86a81807-9dae-458d-a181-3e64a104c0a2][Instruction Set Randomization]]
+- [[id:75e3b1b5-74c7-44ba-b6a1-babbea49e051][Pointer Integrity]]

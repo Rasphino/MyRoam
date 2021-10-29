@@ -1,0 +1,7 @@
+:PROPERTIES:
+:ID:       30090d07-7690-4bbb-9b16-9b1ea59a7bd3
+:END:
+#+title: Data Structure
+
+- [[id:f52c7dd5-9644-4ea2-bc2a-0f71be6c5e82][Monotonic Stack]]
+- [[id:fa561dfd-46f8-4576-87cf-5b12ce3feb8b][Monotonic Queue]]

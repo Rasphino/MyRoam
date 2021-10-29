@@ -1,0 +1,57 @@
+:PROPERTIES:
+:ID:       fa561dfd-46f8-4576-87cf-5b12ce3feb8b
+:END:
+#+title: Monotonic Queue
+
+Monotonic queue is usually used to solve sliding window problem.
+
+#+begin_src java
+class MonotonicQueue {
+    private LinkedList<Integer> q = new LinkedList<>();
+
+    public void enqueue(int n) {
+        while (!q.isEmpty() && q.getLast() < n) q.pollLast();
+        q.addLast(n);
+    }
+
+    public int max() {
+        return q.getFirst();
+    }
+
+    public void dequeueIfExist(int n) {
+        if (n == q.getFirst()) {
+            q.pollFirst();
+        }
+    }
+}
+#+end_src
+
+* Leetcode [[https://leetcode-cn.com/problems/sliding-window-maximum/][239. Sliding Window Maximum]]
+There is a sliding window moving from left to right. For each position, we need to find the maximum number in the sliding windows. In order to get the maximum number in =O(1)= time, we can use monotonic queue.
+
+#+begin_src java
+int[] maxSlidingWindow(int[] nums, int k) {
+    MonotonicQueue window = new MonotonicQueue();
+    List<Integer> res = new ArrayList<>();
+
+    for (int i = 0; i < nums.length; i++) {
+        if (i < k - 1) {
+            //先填满窗口的前 k - 1
+            window.push(nums[i]);
+        } else {
+            // 窗口向前滑动，加入新数字
+            window.push(nums[i]);
+            // 记录当前窗口的最大值
+            res.add(window.max());
+            // 移出旧数字
+            window.pop(nums[i - k + 1]);
+        }
+    }
+    // 需要转成 int[] 数组再返回
+    int[] arr = new int[res.size()];
+    for (int i = 0; i < res.size(); i++) {
+        arr[i] = res.get(i);
+    }
+    return arr;
+}
+#+end_src

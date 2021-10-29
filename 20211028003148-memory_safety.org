@@ -1,0 +1,66 @@
+:PROPERTIES:
+:ID:       00546e2e-eadf-45f3-9d33-248ffdea3268
+:END:
+#+title: Memory Safety
+
+Goals:
+1. Create memory pointers via permitted operations
+2. Only access memory allocated to the pointer
+   - Spatially: within the allocated range
+   - Temporally: while the memory is in scope
+3. All “objects” are spatially disjoint at all time
+
+
+* Enforce Partial Memory Safety
+** Stack Canaries
+Canary: random secret value before return address
+Layout: =L [ local variables | canary | saved frame pointer | return address ] H=
+
+Check the random canary value at =ret=
+
+** Guard Pages
+Insert pages with NR, NW, NX in normal pages
+
+Assumption:
+- Attacker can only write linearly
+
+** Non-Executable Data / Data Execution Prevention
+Setting regions of memory non-executable
+
+
+* Enforce Full Memory Safety
+** Spatial Safety
+1. Distinguish pointers from non-pointers
+2. Check object allocation
+3. Check each pointer access
+
+Proposals:
+1. Fat pointers: =p | [start, end]=
+   Advantage: pass metadata with pointer
+   Disadvantage: capability issues with non-fat pointer
+2. Shadow-memory data structure: put metadata in dedicate data structure (e.g., hash table, JK-Tree)
+
+Hardware support: Intel MPX
+
+
+** Temporal Safety
+1. Track creation and destruction of pointers
+2. Ensure: de-allocated pointers are not accessed
+
+Proposals:
+1. Lock-and-key: =P | K | L=
+   The key =K= and lock =L= match only if =P= is live
+   When deallocated, change the key =K= (so =K= and =L= don’t match)
+2. Canary-based defenses: set pointer to =NULL=
+
+
+** Approaches to Enforce Memory Safety
+1. Statically disallow:
+   - Type Casts
+   - Unchecked Buffer Accesses
+   - Pointer Arithmetic
+   - Explicit Alloc/Dealloc
+2. Dynamically Check
+3. Statically + Dynamically
+
+ 

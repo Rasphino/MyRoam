@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       531d3c4c-c3b5-48e4-ba87-c2b67d0244d1
+:END:
+#+title: Control-Flow Integrity
+
+Definition: each control transfer jumps to a statically known set of locations
+
+* Return edges
+Problem: A function can have several callers
+Solution: Use a shadow stack
+
+
+* CFI Implementation with Randomized Tags
+Put some bytes (tag) on the beginning of the jump target
+Tag should be random and secret
+If =f= can jump to block =g= and =h=, then blocks =g= and =h= should have the same tag
+ 

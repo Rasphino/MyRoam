@@ -1,0 +1,41 @@
+:PROPERTIES:
+:ID:       d3cf85f6-340d-4e14-9573-10211f3cc55e
+:END:
+#+title: Database Normalization
+
+Database normalization is the process of structuring a [[id:f66438c9-f45d-4d47-88c6-3862933b9ff4][database]], usually a relational database, in accordance with a series of so-called normal forms in order to reduce data redundancy and improve data integrity. It was first proposed by Edgar F. Codd as part of his relational model.
+
+* First Normal Form
+:PROPERTIES:
+:ID:       cec98955-ec4f-4d2a-8e63-3a4fd7c330c7
+:END:
+A relational schema $R$ is in 1NF if the domains of all attributes of $R$ are atomic (i.e., elements are indivisible).
+
+Examples of non-atomic domains:
+- Composite attribute: set of names
+- Multi-value attribute: a person's phones
+- Complex data type: object-oriented
+
+* Boyce-Codd Normal Form
+:PROPERTIES:
+:ID:       76bd98f8-9496-4137-98d5-2b21908e237e
+:END:
+A relation schema $R$ is in BCNF, with respect to a set $F$ of functional dependencies, if for all functional dependencies in $F^+$ of the form $\alpha \rightarrow \beta$, where $\alpha \subseteq R$ and $\beta \subseteq R$, the following holds:
+
+$\alpha \rightarrow \beta$ is trivial (i.e., $\beta \in \alpha$)
+or
+$\alpha$ is a superkey for $R$ (i.e., $R \subseteq \alpha^+, \alpha \rightarrow R$)
+
+* Third Normal Form
+:PROPERTIES:
+:ID:       edab4637-3797-4f72-9b9b-9952c98b102f
+:END:
+A relation schema $R$ is in 3NF if for all $\alpha \rightarrow \beta$ in $F^+$, at least one of the following conditions holds:
+- $\alpha \rightarrow \beta$ is trivial (i.e., $\beta \in \alpha$).
+- $\alpha$ is a superkey for $R$.
+- Each attribute $A$ in $\beta - \alpha$ is contained in a candidate key for $R$.
+- Note: each attribute may be in a different candidate key.
+
+3NF is weaker than BCNF:
+- Allows some redundancy
+-
